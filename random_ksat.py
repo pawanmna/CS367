@@ -1,11 +1,9 @@
-# random_ksat_solvers.py
 import random, time, math
 from collections import defaultdict
 import pandas as pd
 
 random.seed(0)
 
-# ----- Instance generation -----
 def gen_random_k_sat(k, n, m):
     clauses = []
     for _ in range(m):
@@ -61,7 +59,6 @@ def flip_delta(clauses, assignment, v, pos_occ, neg_occ):
         after += 1 if sat_after else 0
     return after - before
 
-# ----- Solvers -----
 def hill_climbing(clauses, n, max_flips=2000, max_restarts=20, heuristic='sat_count', pos_occ=None, neg_occ=None):
     m = len(clauses)
     for restart in range(max_restarts):
@@ -160,7 +157,6 @@ def vnd(clauses, n, pos_occ, neg_occ, max_iter=500):
         break
     return best_score == m, (assignment if best_score==m else None), -1
 
-# ----- Experiment driver (small demo) -----
 def run_single_setting(n,m,n_instances=10):
     results = []
     for inst in range(n_instances):
@@ -187,7 +183,6 @@ def run_single_setting(n,m,n_instances=10):
     ).reset_index()
     return df, summary
 
-# Example run:
 if __name__ == "__main__":
     df_details, df_summary = run_single_setting(20, 80, n_instances=5)
     print(df_summary)
