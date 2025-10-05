@@ -1,6 +1,6 @@
 from collections import deque
 
-
+# Generate possible next states from current configuration
 def get_next_states(state):
     states = []
     s = list(state)
@@ -77,7 +77,9 @@ def dfs(start, goal):
 
 
 if __name__ == "__main__":
+    # Initial state: three east rabbits, gap, three west rabbits
     start = "EEE_WWW"
+    # Goal state: three west rabbits, gap, three east rabbits
     goal = "WWW_EEE"
 
     path_bfs, nodes_bfs = bfs(start, goal)
@@ -92,5 +94,5 @@ if __name__ == "__main__":
     for step in path_dfs:
         print(step)
     print("\nTotal steps:", len(path_dfs) - 1)
-    print("Nodes explored (DFS):", nodes_dfs) 
+    print("Nodes explored (DFS):", nodes_dfs)
 
