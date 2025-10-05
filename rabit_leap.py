@@ -33,58 +33,64 @@ def get_next_states(state):
 def bfs(start, goal):
     queue = deque([start])
     parent = {start: None}
+    nodes_explored = 0
 
     while queue:
         state = queue.popleft()
+        nodes_explored += 1
         if state == goal:
             path = []
             while state:
                 path.append(state)
                 state = parent[state]
-            return path[::-1]
+            return path[::-1], nodes_explored
 
         for next_state in get_next_states(state):
             if next_state not in parent:
                 parent[next_state] = state
                 queue.append(next_state)
-    return None
+    return None, nodes_explored
 
 # DFS Solution
 def dfs(start, goal):
     stack = [start]
     parent = {start: None}
     visited = set()
+    nodes_explored = 0
 
     while stack:
         state = stack.pop()
+        nodes_explored += 1
         if state == goal:
             path = []
             while state:
                 path.append(state)
                 state = parent[state]
-            return path[::-1]
+            return path[::-1], nodes_explored
 
         visited.add(state)
         for next_state in get_next_states(state):
             if next_state not in visited:
                 parent[next_state] = state
                 stack.append(next_state)
-    return None
+    return None, nodes_explored
 
 
 if __name__ == "__main__":
     start = "EEE_WWW"
     goal = "WWW_EEE"
 
-    path_bfs = bfs(start, goal)
+    path_bfs, nodes_bfs = bfs(start, goal)
     print("BFS Solution:")
     for step in path_bfs:
         print(step)
     print("\nTotal steps:", len(path_bfs) - 1)
+    print("Nodes explored (BFS):", nodes_bfs)
 
-    path_dfs = dfs(start, goal)
+    path_dfs, nodes_dfs = dfs(start, goal)
     print("\nDFS Solution:")
     for step in path_dfs:
         print(step)
     print("\nTotal steps:", len(path_dfs) - 1)
+    print("Nodes explored (DFS):", nodes_dfs) 
 
